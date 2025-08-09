@@ -1,0 +1,59 @@
+name: Test and build
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+
+      - name: Install dependencies (if needed)
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+      - name: Run tests
+        run: |
+          cc -v
+          make clean
+          make test
+
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+
+      - name: Install dependencies (if needed)
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+
+      - name: Build and Install
+        run: |
+          make clean
+          make
+          make install
+
+  norminette:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install norminette if missing
+        run: |
+          if ! command -v norminette &> /dev/null; then
+            python3 -m pip install --upgrade pip
+            python3 -m pip install norminette
+          fi
+
+      - name: Run norminette on src
+        run: |
+          echo "Current dir: $(pwd)"
+          ls -ls
+          make norminette
