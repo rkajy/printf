@@ -6,13 +6,13 @@
 /*   By: radandri <radandri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 20:26:42 by radandri          #+#    #+#             */
-/*   Updated: 2025/08/10 15:10:39 by radandri         ###   ########.fr       */
+/*   Updated: 2025/08/11 21:37:14 by radandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int ft_printf(const char *dfs)
+int ft_printf(const char *dfs, ...)
 {
     return 0;
 }

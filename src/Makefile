@@ -6,10 +6,9 @@
 #    By: radandri <radandri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/11 18:42:51 by radandri          #+#    #+#              #
-#    Updated: 2025/08/11 18:57:46 by radandri         ###   ########.fr        #
+#    Updated: 2025/08/11 21:43:22 by radandri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
