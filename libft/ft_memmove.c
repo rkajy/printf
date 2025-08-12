@@ -1,23 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: radandri <radandri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 20:26:42 by radandri          #+#    #+#             */
-/*   Updated: 2025/08/11 21:37:14 by radandri         ###   ########.fr       */
+/*   Created: 2025/07/07 22:12:13 by radandri          #+#    #+#             */
+/*   Updated: 2025/07/14 18:25:05 by radandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include "ft_printf.h"
-#include <unistd.h>
-#include <stdarg.h>
-
-int ft_printf(const char *format, ...)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-    (void)format;
-    return 0;
-}
+	char	*cdest;
+	char	*csrc;
+	size_t	i;
 
+	cdest = (char *)dst;
+	csrc = (char *)src;
+	if (!dst && !src)
+		return (NULL);
+	if (cdest > csrc)
+	{
+		while (len > 0)
+		{
+			len--;
+			cdest[len] = csrc[len];
+		}
+		return (dst);
+	}
+	i = 0;
+	while (i < len)
+	{
+		cdest[i] = csrc[i];
+		i++;
+	}
+	return (dst);
+}

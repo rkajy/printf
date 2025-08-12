@@ -12,13 +12,25 @@
 
 
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include <stddef.h>
+# include <stdarg.h>
 
-void	*ft_memset(void *b, int c, size_t len);
-void	*ft_memmove(void *dst, const void *src, size_t len);
-int ft_printf(const char *str, ...);
+typedef struct s_format {
+	int flag_minus;
+	int flag_plus;
+	int flag_space;
+	int flag_zero;
+	int flag_hash;
+	int width;
+	int precision;
+	int length;
+} t_format;
 
-#endif
+void    *ft_memset(void *b, int c, size_t len);
+void    *ft_memmove(void *dst, const void *src, size_t len);
+int     ft_printf(const char *format, ...);
+
+#endif // FT_PRINTF_H

@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: radandri <radandri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 20:26:42 by radandri          #+#    #+#             */
-/*   Updated: 2025/08/11 21:37:14 by radandri         ###   ########.fr       */
+/*   Created: 2025/07/07 22:23:43 by radandri          #+#    #+#             */
+/*   Updated: 2025/07/11 16:06:44 by radandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include "ft_printf.h"
-#include <unistd.h>
-#include <stdarg.h>
-
-int ft_printf(const char *format, ...)
+int	ft_toupper(int c)
 {
-    (void)format;
-    return 0;
+	if (c >= 'a' && c <= 'z')
+	{
+		return (c - 32);
+	}
+	return (c);
 }
-

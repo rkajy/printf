@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: radandri <radandri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 20:26:42 by radandri          #+#    #+#             */
-/*   Updated: 2025/08/11 21:37:14 by radandri         ###   ########.fr       */
+/*   Created: 2025/07/07 22:26:45 by radandri          #+#    #+#             */
+/*   Updated: 2025/07/11 16:13:16 by radandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "ft_printf.h"
-#include <unistd.h>
-#include <stdarg.h>
-
-int ft_printf(const char *format, ...)
+int	ft_tolower(int c)
 {
-    (void)format;
-    return 0;
+	if (c >= 'A' && c <= 'Z')
+	{
+		return (c + 32);
+	}
+	return (c);
 }
-

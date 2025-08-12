@@ -11,7 +11,7 @@ int print_format(char specifier, va_list ap)
     return 0;
 }
 
-int my_printf(const char *format, ...)
+int main(void)
 {
     va_list ap;
     int count;

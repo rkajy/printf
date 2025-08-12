@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: radandri <radandri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 20:26:42 by radandri          #+#    #+#             */
-/*   Updated: 2025/08/11 21:37:14 by radandri         ###   ########.fr       */
+/*   Created: 2025/07/21 22:50:33 by radandri          #+#    #+#             */
+/*   Updated: 2025/07/22 15:01:09 by radandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include "ft_printf.h"
-#include <unistd.h>
-#include <stdarg.h>
-
-int ft_printf(const char *format, ...)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-    (void)format;
-    return 0;
+	while (lst != NULL)
+	{
+		(*f)(lst->content);
+		lst = lst->next;
+	}
 }
-

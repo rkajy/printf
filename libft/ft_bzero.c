@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: radandri <radandri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 20:26:42 by radandri          #+#    #+#             */
-/*   Updated: 2025/08/11 21:37:14 by radandri         ###   ########.fr       */
+/*   Created: 2025/07/07 22:08:06 by radandri          #+#    #+#             */
+/*   Updated: 2025/07/15 15:05:52 by radandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include "ft_printf.h"
-#include <unistd.h>
-#include <stdarg.h>
-
-int ft_printf(const char *format, ...)
+void	ft_bzero(void *s, size_t n)
 {
-    (void)format;
-    return 0;
-}
+	size_t	i;
+	char	*temp;
 
+	temp = (char *)s;
+	i = 0;
+	while (i < n)
+	{
+		temp[i] = 0;
+		i++;
+	}
+}

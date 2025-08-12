@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: radandri <radandri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 20:26:42 by radandri          #+#    #+#             */
-/*   Updated: 2025/08/11 21:37:14 by radandri         ###   ########.fr       */
+/*   Created: 2025/07/16 11:25:45 by radandri          #+#    #+#             */
+/*   Updated: 2025/07/16 14:14:43 by radandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include "ft_printf.h"
-#include <unistd.h>
-#include <stdarg.h>
-
-int ft_printf(const char *format, ...)
+char	*ft_strdup(const char *s1)
 {
-    (void)format;
-    return 0;
-}
+	size_t	s1_len;
+	size_t	i;
+	char	*res;
 
+	s1_len = ft_strlen(s1);
+	i = 0;
+	res = (char *)malloc(sizeof(char) * (s1_len + 1));
+	if (!res)
+	{
+		return (NULL);
+	}
+	while (i < s1_len)
+	{
+		res[i] = s1[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
+}

@@ -13,26 +13,27 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
+LIBFT = ../libft/libft.a
 
-#SRCS = $(wildcard *.c)
-SRCS = ft_print.c \
-		ft_memmove.c \
-		ft_memset.c \
-		printf_test.c \
-		test.c 
+SRCS = ft_printf.c \
+       ft_memmove.c \
+       ft_memset.c
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	$(MAKE) -C ../libft
+	ar rcs $(NAME) $(OBJS) $(LIBFT)
 
 clean:
-	rm -f $(OBJS) $(B_OBJS)
+	rm -f $(OBJS)
+	$(MAKE) -C ../libft clean
 
 fclean: clean
 	rm -f $(NAME)
+	$(MAKE) -C ../libft fclean
 
 re: fclean all
 
