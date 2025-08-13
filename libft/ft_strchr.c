@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: radandri <radandri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 20:26:42 by radandri          #+#    #+#             */
-/*   Updated: 2025/08/11 21:37:14 by radandri         ###   ########.fr       */
+/*   Created: 2025/07/08 11:03:03 by radandri          #+#    #+#             */
+/*   Updated: 2025/07/17 21:08:02 by radandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include "ft_printf.h"
-#include <unistd.h>
-#include <stdarg.h>
-
-int ft_printf(const char *format, ...)
+char	*ft_strchr(const char *s, int c)
 {
-    (void)format;
-    return 0;
-}
+	char	pc;
+	int		i;
 
+	i = 0;
+	pc = (char)c;
+	while (s[i])
+	{
+		if (s[i] == pc)
+		{
+			return ((char *)&s[i]);
+		}
+		i++;
+	}
+	if (s[i] == pc)
+	{
+		return ((char *)&s[i]);
+	}
+	return (NULL);
+}
