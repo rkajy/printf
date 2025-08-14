@@ -1,7 +1,8 @@
 name: Test and build
-
 on:
-  push:
+  push: #le pipeline se declenche sur chaque push sur main, donc apres merge.
+    branches: [ main ]
+  pull_request: #le pipeline se declenche sur chaque pull request vers main.
     branches: [ main ]
   workflow_dispatch:
 
