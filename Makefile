@@ -78,4 +78,45 @@ update_unity:
 install_paco:
 	bash -c "$$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
 
-.PHONY: all compile test clean install norminette format_norm
+install-ohmyzsh:
+	@echo "Vérification de zsh..."
+	@if ! command -v zsh >/dev/null 2>&1; then \
+		echo "zsh non trouvé, installation..."; \
+		if [ "$$(uname)" = "Darwin" ]; then \
+			brew install zsh; \
+		else \
+			sudo apt-get update && sudo apt-get install -y zsh; \
+		fi \
+	else \
+		echo "zsh déjà installé"; \
+	fi
+	@echo "Vérification du shell par défaut..."
+	@if [ "$$SHELL" != "$$(which zsh)" ]; then \
+		echo "Changement du shell par défaut pour zsh..."; \
+		chsh -s $$(which zsh); \
+	else \
+		echo "zsh est déjà le shell par défaut"; \
+	fi
+	@echo "Vérification de Oh My Zsh..."
+	@if [ ! -d "$$HOME/.oh-my-zsh" ]; then \
+		echo "Installation de Oh My Zsh..."; \
+		if command -v curl >/dev/null 2>&1; then \
+			sh -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; \
+		elif command -v wget >/dev/null 2>&1; then \
+			sh -c "$$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"; \
+		else \
+			echo "Erreur : curl ou wget requis pour installer Oh My Zsh"; \
+			exit 1; \
+		fi \
+	fi
+	@echo "Installation des plugins Oh My Zsh..."
+	@if [ ! -d "$$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then \
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; \
+	fi
+	@if [ ! -d "$$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then \
+		git clone https://github.com/zsh-users/zsh-autosuggestions $$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
+	fi
+	@echo "Installation terminée. Redémarre ton terminal pour appliquer zsh par défaut."
+
+
+.PHONY: all compile test clean install norminette format_norm install-ohmyzsh
