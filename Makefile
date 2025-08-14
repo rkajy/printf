@@ -41,6 +41,15 @@ CFLAGS      := -I. -I$(DEP_DIR) -I$(SRC_DIR) -I$(UNITY_DIR) -DTEST
 # Cible principale pour tester
 # =========================
 test: $(RESULTS_DIR)/Testft
+	@echo "==== Lancement des tests ===="
+	@./$(RESULTS_DIR)/Testft || { echo "❌ Tests échoués"; exit 1; }
+	@echo "==== Fin des tests ✅ ===="
+
+test-valgrind: $(RESULTS_DIR)/Testft
+	@echo "==== Lancement des tests avec Valgrind ===="
+	@valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 ./$(RESULTS_DIR)/Testft \
+		|| { echo "❌ Valgrind a détecté des fuites ou erreurs"; exit 1; }
+	@echo "==== Fin des tests Valgrind ✅ ===="
 
 $(RESULTS_DIR)/Testft: $(OBJS)
 	@mkdir -p $(RESULTS_DIR)
@@ -118,5 +127,43 @@ install-ohmyzsh:
 	fi
 	@echo "Installation terminée. Redémarre ton terminal pour appliquer zsh par défaut."
 
+install_valgrind:
+	@echo "==== Installation de Valgrind ===="
+	@unameOut=$$(uname); \
+	if [ "$$unameOut" = "Darwin" ]; then \
+		if ! command -v valgrind &> /dev/null; then \
+			if ! command -v brew &> /dev/null; then \
+				echo "Homebrew non trouvé, installation de Homebrew..."; \
+				/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+			fi; \
+			brew install --HEAD valgrind || echo "Erreur : valgrind non disponible sur cette version de macOS"; \
+		else \
+			echo "Valgrind déjà installé"; \
+		fi \
+	elif [ "$$unameOut" = "Linux" ]; then \
+		if ! command -v valgrind &> /dev/null; then \
+			if command -v apt &> /dev/null; then \
+				sudo apt update && sudo apt install -y valgrind; \
+			elif command -v yum &> /dev/null; then \
+				sudo yum install -y valgrind; \
+			elif command -v pacman &> /dev/null; then \
+				sudo pacman -Sy valgrind; \
+			else \
+				echo "Erreur : gestionnaire de packages non supporté"; \
+			fi \
+		else \
+			echo "Valgrind déjà installé"; \
+		fi \
+	else \
+		echo "OS non supporté pour l'installation automatique de Valgrind"; \
+	fi
 
-.PHONY: all compile test clean install norminette format_norm install-ohmyzsh
+install_doxygen:
+	@echo "==== Installation de Valgrind et Doxygen ===="
+	sudo apt update
+	sudo apt install -y doxygen graphviz
+	@echo "==== Installation terminée ===="
+	@doxygen --version
+
+
+.PHONY: all compile test test-valgrind clean install norminette format_norm install-ohmyzsh install_valgrind install_doxygen

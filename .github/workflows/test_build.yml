@@ -16,12 +16,18 @@ jobs:
           submodules: 'true'
 
       - name: Install dependencies (if needed)
-        run: sudo apt-get update && sudo apt-get install -y build-essential
+        run: sudo apt-get update && sudo apt-get install -y build-essential valgrind
       - name: Run tests
         run: |
           cc -v
           make clean
-          make test
+          make test && make test-valgrind
+          if [ $? -ne 0 ]; then
+            echo "Tests failed. Exiting with error."
+            exit 1
+          else
+            echo "All tests passed successfully."
+          fi
 
   compile:
     runs-on: ubuntu-latest
