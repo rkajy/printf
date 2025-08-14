@@ -1,77 +1,63 @@
-# Dossiers
-PATHO = build/objs/
-PATHR = build/results/
-PATHD = build/depends/
-PATHT = test/
-PATHS = src/
-UNITY = unity/src/
+# =========================
+# Variables de répertoires
+# =========================
+SRC_DIR     := src
+TEST_DIR    := test
+UNITY_DIR   := unity/src
+BUILD_DIR   := build
+OBJ_DIR     := $(BUILD_DIR)/objs
+RESULTS_DIR := $(BUILD_DIR)/results
+DEP_DIR     := $(BUILD_DIR)/depends
 
-# Fichiers objets
-_OBJS = $(patsubst $(PATHS)%.c, $(PATHO)%.o, $(wildcard $(PATHS)*.c))
-BUILD_PATHS = $(PATHO) $(PATHR) $(PATHD)
+# =========================
+# Fichiers sources
+# =========================
+SRC_FILES   := $(SRC_DIR)/ft_memset.c \
+               $(SRC_DIR)/ft_printf.c \
+               $(SRC_DIR)/parse_format.c \
+               $(SRC_DIR)/printf_test.c \
+               $(SRC_DIR)/test.c
 
-# Compilation
-CC = cc
-CFLAGS = -I. -I$(PATHD) -I$(PATHS) -I$(UNITY) -DTEST
-LDFLAGS =
+TEST_FILES  := $(TEST_DIR)/Testft.c \
+               $(TEST_DIR)/compare_printfs.c \
+               $(TEST_DIR)/ft_vsnprintf.c
 
-# Résultats des tests
-TEST_SRCS = $(wildcard $(PATHT)*.c)
-TEST_BINS = $(patsubst $(PATHT)%.c, $(PATHR)%, $(TEST_SRCS))
-RESULTS = $(addsuffix .txt, $(TEST_BINS))
+UNITY_FILES := $(UNITY_DIR)/unity.c
 
-# Couleurs ANSI
-GREEN = \033[0;32m
-RED = \033[0;31m
-YELLOW = \033[0;33m
-NC = \033[0m
+# =========================
+# Tous les objets compilés
+# =========================
+OBJS        := $(SRC_FILES:%.c=$(OBJ_DIR)/%.o) \
+               $(TEST_FILES:%.c=$(OBJ_DIR)/%.o) \
+               $(UNITY_FILES:%.c=$(OBJ_DIR)/%.o)
 
-# Règles principales
-all: $(BUILD_PATHS) compile
+# =========================
+# Compilation & flags
+# =========================
+CC          := cc
+CFLAGS      := -I. -I$(DEP_DIR) -I$(SRC_DIR) -I$(UNITY_DIR) -DTEST
 
-compile: $(_OBJS)
+# =========================
+# Cible principale pour tester
+# =========================
+test: $(RESULTS_DIR)/Testft
 
-test: $(BUILD_PATHS) $(RESULTS)
-	@echo "\n$(YELLOW)================ IGNORE ================\n$(NC)"
-	@grep -s IGNORE $(PATHR)*.txt || true
-	@echo "\n$(RED)================ FAILURES ===============\n$(NC)"
-	@grep -s FAIL $(PATHR)*.txt && exit 1 || true
-	@echo "\n$(GREEN)================ PASSED ================\n$(NC)"
-	@grep -s PASS $(PATHR)*.txt || true
-	@echo "\n$(NC)================ DONE ==================\n"
+$(RESULTS_DIR)/Testft: $(OBJS)
+	@mkdir -p $(RESULTS_DIR)
+	$(CC) $(CFLAGS) -o $@ $(OBJS)
 
-install:
-	@echo "No install step defined"
-
-# Compilation des tests (exécutables)
-$(PATHR)%: $(PATHT)%.c $(PATHO)unity.o $(_OBJS) $(PATHO)compare_printfs.o #$(PATHO)ft_vsprintf.o
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
-
-# Exécution des tests -> résultats dans fichiers .txt
-$(PATHR)%.txt: $(PATHR)%
-	@./$< 2>&1 | tee $@ || true
-
-# Compilation des fichiers sources
-$(PATHO)%.o: $(PATHS)%.c
+# =========================
+# Compilation des .o
+# =========================
+$(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Compilation des fichiers de dépendances, genere des fichiers objets pour tous les fichiers .c dans le rep test
-$(PATHO)%.o: $(PATHT)%.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Compilation de Unity
-$(PATHO)unity.o: $(UNITY)unity.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Création des dossiers
-$(BUILD_PATHS):
-	@mkdir -p $@
-
+# =========================
+# Nettoyage
+# =========================
 clean:
-	rm -rf $(PATHO) $(PATHR) $(PATHD) $(PATHS)*.out
+	rm -rf $(OBJ_DIR) $(RESULTS_DIR) $(DEP_DIR) src/*.out
 
 norminette:
 	if ! command -v norminette &> /dev/null; then \

@@ -17,18 +17,6 @@ void test_plus_flag(void) {
     compare_printfs("2 -> |%+d|\n", -42);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 void setUp()
 {
 
