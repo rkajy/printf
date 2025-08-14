@@ -6,17 +6,16 @@
 #include <stdio.h>
 
 
-
-
-void test_ft_memmove()
-{
-
-}
+void compare_printfs(const char *format, ...);
 
 void test_ft_memset()
 {
 }
-
+// Test pour le flag +
+void test_plus_flag(void) {
+    compare_printfs("1 -> |%+d|\n", 42);
+    compare_printfs("2 -> |%+d|\n", -42);
+}
 
 
 
@@ -43,8 +42,7 @@ void tearDown()
 int main(void)
 {
 	UNITY_BEGIN();
-	RUN_TEST(test_ft_memmove);
-	RUN_TEST(test_ft_memset);
+	RUN_TEST(test_plus_flag);
 	UNITY_END();
 
 	return 0;

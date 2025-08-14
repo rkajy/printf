@@ -1,0 +1,92 @@
+t_printf()
+
+
+In C, the printf function uses format specifiers to control how values are converted to text. The characters you listed—cspdiuxX%—are conversion specifiers used in the printf format string.
+
+    **c – Prints a single character (e.g., printf("%c", 'A'); → A)
+    **s – Prints a string (null-terminated char array) (e.g., printf("%s", "Hello"); → Hello)
+    **p – Prints a pointer (memory address) (e.g., printf("%p", ptr); → 0x7ffee4f8)
+    **d – Prints a signed decimal integer (e.g., printf("%d", -42); → -42)
+    **I – Same as d (signed decimal integer)
+    *u – Prints an unsigned decimal integer (e.g., printf("%u", 42); → 42)
+    **x – Prints an unsigned hexadecimal integer (lowercase letters) (e.g., printf("%x", 255); → ff)
+    **X – Prints an unsigned hexadecimal integer (uppercase letters) (e.g., printf("%X", 255); → FF)
+    **% – Printsxlear a literal % (e.g., printf("%%"); → %)
+
+
+Test Cases for Bonus
+
+1. + flag (always show sign)
+
+ft_printf("1 -> |%+d|\n", 42);     // expected: |+42|
+
+ft_printf("2 -> |%+d|\n", -42);    // expected: |-42|
+
+
+2. Space flag (only if no +)
+
+ft_printf("3 -> |% d|\n", 42);     // expected: | 42|
+
+ft_printf("4 -> |% d|\n", -42);    // expected: |-42|
+
+
+3. 0 flag (pad with zeros)
+
+ft_printf("5 -> |%05d|\n", 42);    // expected: |00042|
+
+ft_printf("6 -> |%05d|\n", -42);   // expected: |-0042|
+
+
+4. - flag (left align)
+
+ft_printf("7 -> |%-5d|\n", 42);    // expected: |42   |
+
+ft_printf("8 -> |%-5d|\n", -42);   // expected: |-42  |
+
+
+5. Precision on numbers
+
+ft_printf("9  -> |%.5d|\n", 42);   // expected: |00042|
+
+ft_printf("10 -> |%.5d|\n", -42);  // expected: |-00042|
+
+ft_printf("11 -> |%.0d|\n", 0);    // expected: | |
+
+
+6. Precision on strings
+
+ft_printf("12 -> |%.3s|\n", "Hello"); // expected: |Hel|
+
+ft_printf("13 -> |%.0s|\n", "Hello"); // expected: ||
+
+
+7. Combine width + precision
+
+ft_printf("14 -> |%10.5d|\n", 42); // expected: |     00042|
+
+ft_printf("15 -> |%-10.5d|\n", 42);// expected: |00042     |
+
+
+8. Combine + and precision
+
+ft_printf("16 -> |%+10.5d|\n", 42);// expected: |    +00042|
+
+
+9. Combine space and width
+
+ft_printf("17 -> |% 10d|\n", 42);  // expected: |        42|
+
+
+10. %p (pointer) with width
+
+void *ptr = (void*)0x1234;
+
+ft_printf("18 -> |%20p|\n", ptr); // expected: |             0x1234|
+
+
+Extra: Zero flag + precision interaction (important)
+
+ft_printf("19 -> |%010.5d|\n", 42); // expected: |     00042|
+
+
+** The 0x prefix is a convention in C (and many other languages) to indicate that the number following it is in hexadecimal (base 16).

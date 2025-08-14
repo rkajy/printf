@@ -16,7 +16,7 @@ CFLAGS = -I. -I$(PATHD) -I$(PATHS) -I$(UNITY) -DTEST
 LDFLAGS =
 
 # Résultats des tests
-TEST_SRCS = $(wildcard $(PATHT)*Test*.c)
+TEST_SRCS = $(wildcard $(PATHT)*.c)
 TEST_BINS = $(patsubst $(PATHT)%.c, $(PATHR)%, $(TEST_SRCS))
 RESULTS = $(addsuffix .txt, $(TEST_BINS))
 
@@ -44,7 +44,7 @@ install:
 	@echo "No install step defined"
 
 # Compilation des tests (exécutables)
-$(PATHR)%: $(PATHT)%.c $(PATHO)unity.o $(_OBJS)
+$(PATHR)%: $(PATHT)%.c $(PATHO)unity.o $(_OBJS) $(PATHO)compare_printfs.o #$(PATHO)ft_vsprintf.o
 	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
 
 # Exécution des tests -> résultats dans fichiers .txt
@@ -53,6 +53,11 @@ $(PATHR)%.txt: $(PATHR)%
 
 # Compilation des fichiers sources
 $(PATHO)%.o: $(PATHS)%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Compilation des fichiers de dépendances, genere des fichiers objets pour tous les fichiers .c dans le rep test
+$(PATHO)%.o: $(PATHT)%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -87,4 +92,4 @@ update_unity:
 install_paco:
 	bash -c "$$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
 
-.PHONY: all compile test clean install norminette format_norm 
+.PHONY: all compile test clean install norminette format_norm

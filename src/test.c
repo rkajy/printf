@@ -20,21 +20,21 @@
 int max(int num_args, ...);
 void print(char *placeholders, ... );
 
-int main(void) 
-{
-  // we can call max with varying numbers of arguments
-  printf("max test:\n");
-  int max_num = max(7, 10, 15, 25, 30, 120, 11, 2);
-  printf("max: %d\n", max_num);
-  max_num = max(4, 20, 55, 15, 12);
-  printf("max: %d\n", max_num);
+// int main(void) 
+// {
+//   // we can call max with varying numbers of arguments
+//   printf("max test:\n");
+//   int max_num = max(7, 10, 15, 25, 30, 120, 11, 2);
+//   printf("max: %d\n", max_num);
+//   max_num = max(4, 20, 55, 15, 12);
+//   printf("max: %d\n", max_num);
   
-  // we can call print with varying numbers and types of arguments too!
-  printf("\nprint test:\n");
-  print("dddfdd", 1,2,3,5.5,-1,-2);
+//   // we can call print with varying numbers and types of arguments too!
+//   printf("\nprint test:\n");
+//   print("dddfdd", 1,2,3,5.5,-1,-2);
 
-  return 0;
-}
+//   return 0;
+// }
 
 // the first argument is the number of int arguments from which to find the 
 // max int value
