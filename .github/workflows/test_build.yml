@@ -1,63 +1,101 @@
-name: Test and build
+name: CI/CD - Build, Test, Docs
+
 on:
-  push: #le pipeline se declenche sur chaque push sur main, donc apres merge.
+  push:
     branches: [ main ]
-  pull_request: #le pipeline se declenche sur chaque pull request vers main.
+  pull_request:
     branches: [ main ]
   workflow_dispatch:
 
 jobs:
-  test:
+  setup:
     runs-on: ubuntu-latest
+    outputs:
+      deps-cache-hit: ${{ steps.cache-deps.outputs.cache-hit }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Cache apt packages (optional)
+        id: cache-deps
+        uses: actions/cache@v3
         with:
-          submodules: 'true'
+          path: /var/cache/apt
+          key: apt-cache-${{ runner.os }}
+          restore-keys: |
+            apt-cache-${{ runner.os }}
 
-      - name: Install dependencies (if needed)
-        run: sudo apt-get update && sudo apt-get install -y build-essential valgrind
-      - name: Run tests
+      - name: Install dependencies
         run: |
-          cc -v
-          make clean
-          make test && make test-valgrind
-          if [ $? -ne 0 ]; then
-            echo "Tests failed. Exiting with error."
-            exit 1
-          else
-            echo "All tests passed successfully."
-          fi
+          sudo apt-get update
+          sudo apt-get install -y build-essential valgrind doxygen graphviz python3-pip
 
-  compile:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          submodules: 'true'
-
-      - name: Install dependencies (if needed)
-        run: sudo apt-get update && sudo apt-get install -y build-essential
-
-      - name: Build and Install
-        run: |
-          make clean
-          make
-          make install
-
-  norminette:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Install norminette if missing
+      - name: Install Norminette
         run: |
           if ! command -v norminette &> /dev/null; then
             python3 -m pip install --upgrade pip
             python3 -m pip install norminette
           fi
+
+  compile:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: 'true'
+
+      - name: Build and install
+        run: |
+          make clean
+          make
+          make install
+
+  test:
+    runs-on: ubuntu-latest
+    needs: compile
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run standard tests
+        run: |
+          make clean
+          make test
+
+  test-valgrind:
+    runs-on: ubuntu-latest
+    needs: compile
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run tests with Valgrind
+        run: |
+          make clean
+          make test-valgrind
+
+  generate-docs:
+    runs-on: ubuntu-latest
+    needs: [test, test-valgrind]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Generate Doxygen documentation
+        run: |
+          doxygen Doxyfile
+
+      - name: Deploy documentation to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/html
+
+  norminette:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Run norminette on src
         run: |
