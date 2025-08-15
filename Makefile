@@ -42,7 +42,13 @@ CFLAGS      := -I. -I$(DEP_DIR) -I$(SRC_DIR) -I$(UNITY_DIR) -DTEST
 # =========================
 test: $(RESULTS_DIR)/Testft
 	@echo "==== Lancement des tests ===="
-	@./$(RESULTS_DIR)/Testft || { echo "❌ Tests échoués"; exit 1; }
+	@./$(RESULTS_DIR)/Testft > $(RESULTS_DIR)/test_output.txt || true
+	@if grep -q FAIL $(RESULTS_DIR)/test_output.txt; then \
+		echo "❌ Tests échoués"; \
+		cat $(RESULTS_DIR)/test_output.txt; \
+		exit 1; \
+	fi
+	@cat $(RESULTS_DIR)/test_output.txt
 	@echo "==== Fin des tests ✅ ===="
 
 test-valgrind: $(RESULTS_DIR)/Testft
@@ -75,7 +81,7 @@ norminette:
 	fi
 	norminette $(PATHS)
 
-format_norm:
+format_norm: # work on linux only
 	if ! command -v c-formatter-42 &> /dev/null; then \
 		pip3 install --user c_formatter_42; \
 	fi
