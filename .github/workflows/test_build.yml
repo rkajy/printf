@@ -13,10 +13,10 @@ jobs:
     outputs:
       deps-cache-hit: ${{ steps.cache-deps.outputs.cache-hit }}
     steps:
-      - name: Checkout
+      - name: Checkout repository (with submodules)
         uses: actions/checkout@v3
         with:
-        submodules: recursive
+          submodules: recursive
 
       - name: Cache apt packages (optional)
         id: cache-deps
@@ -43,9 +43,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository (with submodules)
+        uses: actions/checkout@v3
         with:
-          submodules: 'true'
+          submodules: recursive
 
       - name: Build and install
         run: |
@@ -57,7 +58,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: compile
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository (with submodules)
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Run standard tests
         run: |
@@ -68,7 +72,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: compile
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository (with submodules)
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Run tests with Valgrind
         run: |
@@ -79,8 +86,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [test, test-valgrind]
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (with submodules)
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Generate Doxygen documentation
         run: |
@@ -96,8 +105,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (with submodules)
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Run norminette on src
         run: |
