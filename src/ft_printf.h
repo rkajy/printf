@@ -5,11 +5,10 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: radandri <radandri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 20:20:13 by radandri          #+#    #+#             */
-/*   Updated: 2025/08/11 21:37:42 by radandri         ###   ########.fr       */
+/*   Created: 2025/08/11 21:37:42 by radandri          #+#    #+#             */
+/*   Updated: 2025/08/15 11:45:47 by radandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 
 #ifndef FT_PRINTF_H
@@ -29,8 +28,17 @@ typedef struct s_format {
 	int length;
 } t_format;
 
-void    *ft_memset(void *b, int c, size_t len);
-void    *ft_memmove(void *dst, const void *src, size_t len);
+
 int     ft_printf(const char *format, ...);
+int print_arg(t_fornat *fmt, va_list *args);
+int print_char(t_format *fmt, va_list *args);
+int print_string(t_format *fmt, va_list *args);
+int print_integer(t_format *fmt, va_list *args);
+int print_unsigned(t_format *fmt, va_list *args);
+int print_hexadecimal(t_format *fmt, va_list *args);
+int print_pointer(t_format *fmt, va_list *args);
+int print_percent(t_format *fmt);
+int parse_format(const char **format, t_format *fmt);
+int parse_flags(const char **format, t_format *fmt);
 
 #endif // FT_PRINTF_H
