@@ -6,34 +6,33 @@
 #    By: radandri <radandri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/11 18:42:51 by radandri          #+#    #+#              #
-#    Updated: 2025/08/11 21:43:22 by radandri         ###   ########.fr        #
+#    Updated: 2025/08/16 16:19:47 by radandri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
-LIBFT = ../libft/libft.a
 
 SRCS = ft_printf.c \
-       ft_memmove.c \
-       ft_memset.c
+       ft_parse_flags.c \
+       ft_print_arg.c \
+	   ft_print_utils_alphabet.c \
+	   ft_print_utils_libft.c \
+	   ft_print_utils_numeric.c
 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(MAKE) -C ../libft
-	ar rcs $(NAME) $(OBJS) $(LIBFT)
+	ar rcs $(NAME) $(OBJS)
 
 clean:
 	rm -f $(OBJS)
-	$(MAKE) -C ../libft clean
 
 fclean: clean
 	rm -f $(NAME)
-	$(MAKE) -C ../libft fclean
 
 re: fclean all
 
