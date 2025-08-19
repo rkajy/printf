@@ -8,15 +8,16 @@ BUILD_DIR   := build
 OBJ_DIR     := $(BUILD_DIR)/objs
 RESULTS_DIR := $(BUILD_DIR)/results
 DEP_DIR     := $(BUILD_DIR)/depends
-
+PACO_BIN := $(shell which -v paco)
 # =========================
 # Fichiers sources
 # =========================
-SRC_FILES   := $(SRC_DIR)/ft_memset.c \
-               $(SRC_DIR)/ft_printf.c \
-               $(SRC_DIR)/parse_format.c \
-               $(SRC_DIR)/printf_test.c \
-               $(SRC_DIR)/test.c
+SRC_FILES   := $(SRC_DIR)/ft_printf.c \
+			   $(SRC_DIR)/ft_parse_flags.c \
+               $(SRC_DIR)/ft_print_arg.c \
+			   $(SRC_DIR)/ft_print_utils_alphabet.c \
+			   $(SRC_DIR)/ft_print_utils_numeric.c
+# =========================
 
 TEST_FILES  := $(TEST_DIR)/Testft.c \
                $(TEST_DIR)/compare_printfs.c \
@@ -87,11 +88,18 @@ format_norm: # work on linux only
 	fi
 	bash utils/format_norm.sh
 
-update_unity:
-	git clone https://github.com/ThrowTheSwitch/Unity.git unity
+install_unity:
+	@echo "==== Mise à jour de Unity ===="
+	rm -rf unity
+	git submodule add https://github.com/ThrowTheSwitch/Unity.git unity
 
 install_paco:
-	bash -c "$$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
+	@echo "==== Mise à jour de Paco ===="
+	git submodule update --init --recursive
+	chmod +x francinette/tester.sh
+
+paco: install_paco
+	cd src && ../francinette/tester.sh
 
 install-ohmyzsh:
 	@echo "Vérification de zsh..."
@@ -172,4 +180,4 @@ install_doxygen:
 	@doxygen --version
 
 
-.PHONY: all compile test test-valgrind clean install norminette format_norm install-ohmyzsh install_valgrind install_doxygen
+.PHONY: all compile test test-valgrind clean install norminette format_norm install_unity install-ohmyzsh install_valgrind install_doxygen
