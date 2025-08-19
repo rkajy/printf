@@ -114,6 +114,7 @@ paco:
 	else \
 		echo '✅ Tous les tests sont passés'; \
 	fi
+	rm -rf result.log
 
 pacol:
 	@set -e; \
@@ -125,6 +126,7 @@ pacol:
 		pip install -r francinette/requirements.txt && \
 		pip install norminette && \
 		cd src && ../francinette/tester.sh"
+		rm -rf result.log
 
 install-ohmyzsh:
 	@echo "Vérification de zsh..."

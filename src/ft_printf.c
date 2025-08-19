@@ -6,7 +6,7 @@
 /*   By: radandri <radandri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 20:26:42 by radandri          #+#    #+#             */
-/*   Updated: 2025/08/18 19:25:49 by radandri         ###   ########.fr       */
+/*   Updated: 2025/08/19 19:05:25 by radandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-int	ft_vdprintf(int fd, const char *format, va_list args)
+int	ft_vdprintf(int fd, const char *format, va_list *args)
 {
 	t_format	fmt;
 	int			count;
@@ -30,7 +30,7 @@ int	ft_vdprintf(int fd, const char *format, va_list args)
 			ptr = parse_flags(ptr, &fmt);
 			if (*ptr)
 				fmt.type = *ptr++;
-			count += print_arg_fd(fd, &fmt, &args);
+			count += print_arg_fd(fd, &fmt, args);
 		}
 		else
 		{
@@ -48,7 +48,7 @@ int	ft_printf(const char *format, ...)
 	int		ret;
 
 	va_start(args, format);
-	ret = ft_vdprintf(1, format, args); // stdout
+	ret = ft_vdprintf(1, format, &args); // stdout
 	va_end(args);
 	return (ret);
 }
