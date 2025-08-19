@@ -98,7 +98,14 @@ install_paco:
 	git submodule update --init --recursive
 	chmod +x francinette/tester.sh
 
-paco: install_paco
+paco:
+	# Crée le venv si nécessaire
+	if [ ! -d francinette/venv ]; then \
+		python3 -m venv francinette/venv; \
+	fi
+	# Active le venv et installe toutes les dépendances
+	. francinette/venv/bin/activate && pip install --upgrade pip && pip install -r francinette/requirements.txt
+	# Lancer le script de Paco
 	cd src && ../francinette/tester.sh
 
 install-ohmyzsh:

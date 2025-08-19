@@ -78,6 +78,20 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
+
+      - name: Set up Python 3
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'  # ou celle que tu utilises en local
+
+      - name: Install Python dependencies
+        run: |
+          python -m venv francinette/venv
+          source francinette/venv/bin/activate
+          pip install --upgrade pip
+          if [ -f francinette/requirements.txt ]; then pip install -r francinette/requirements.txt; fi
+          pip install gitpython
+
       - name: Debug - show files
         run: |
           echo "Current dir: $(pwd)"
@@ -86,6 +100,7 @@ jobs:
 
       - name: Make Paco
         run: |
+          source francinette/venv/bin/activate
           make paco
 
   test-valgrind:
