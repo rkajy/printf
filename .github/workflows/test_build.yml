@@ -71,6 +71,23 @@ jobs:
           make clean
           make test
 
+  run-paco:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - name: Debug - show files
+        run: |
+          echo "Current dir: $(pwd)"
+          ls -l
+          head -n 20 Makefile || true
+
+      - name: Make Paco
+        run: |
+          make paco
+
   test-valgrind:
     runs-on: ubuntu-latest
     needs: compile
