@@ -16,28 +16,28 @@ In C, the printf function uses format specifiers to control how values are conve
 
 Test Cases for Bonus
 
-1. + flag (always show sign)
+1. flag_plus (always show sign)
 
 ft_printf("1 -> |%+d|\n", 42);     // expected: |+42|
 
 ft_printf("2 -> |%+d|\n", -42);    // expected: |-42|
 
 
-2. Space flag (only if no +)
+2. flag_space (only if no +)
 
 ft_printf("3 -> |% d|\n", 42);     // expected: | 42|
 
 ft_printf("4 -> |% d|\n", -42);    // expected: |-42|
 
 
-3. 0 flag (pad with zeros)
+3. flag_zero (pad with zeros)
 
 ft_printf("5 -> |%05d|\n", 42);    // expected: |00042|
 
 ft_printf("6 -> |%05d|\n", -42);   // expected: |-0042|
 
 
-4. - flag (left align)
+4. flag_minus (left align)
 
 ft_printf("7 -> |%-5d|\n", 42);    // expected: |42   |
 
@@ -59,6 +59,8 @@ ft_printf("12 -> |%.3s|\n", "Hello"); // expected: |Hel|
 
 ft_printf("13 -> |%.0s|\n", "Hello"); // expected: ||
 
+
+*****/DON't FORGET TO CHECK from 7
 
 7. Combine width + precision
 

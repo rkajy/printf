@@ -6,7 +6,7 @@
 #    By: radandri <radandri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/11 18:42:51 by radandri          #+#    #+#              #
-#    Updated: 2025/08/18 14:37:01 by radandri         ###   ########.fr        #
+#    Updated: 2025/08/18 16:59:58 by radandri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ SRCS = ft_printf.c \
        ft_parse_flags.c \
        ft_print_arg.c \
 	   ft_print_utils_alphabet.c \
-	   ft_print_utils_libft.c \
 	   ft_print_utils_numeric.c
 
 OBJS = $(SRCS:.c=.o)
@@ -38,6 +37,8 @@ $(NAME): $(OBJS)
 	ar rcs $(NAME) *.o
 # clean up extracted libft.o files
 	rm -f *.o
+
+bonus:
 
 clean:
 	rm -f $(OBJS)

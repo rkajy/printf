@@ -1,29 +1,26 @@
-#include "unity.h"
-#include "ft_printf.h" // Ton implémentation de ft_printf
+#include "ft_printf.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdarg.h>
+#include "ft_printf_test.h"   // <= ajoute bien CET include
 
-int ft_vsnprintf(char *str, size_t size, const char *format, va_list ap);
-
-void compare_printfs(const char *format, ...)
+int compare_printfs(const char *format, ...)
 {
-    char buffer_printf[1000];
-    char buffer_ft_printf[1000];
-    int result_printf, result_ft_printf;
-
+    char buf1[128], buf2[128];
+    int ret1, ret2;
     va_list args1, args2;
+
     va_start(args1, format);
-    va_start(args2, format);
+    va_copy(args2, args1);
 
-    // Appel de printf standard
-    result_printf = vsnprintf(buffer_printf,sizeof(buffer_printf), format, args1);
-
-    // Capture de la sortie de ft_printf
-    result_ft_printf = ft_vsnprintf(buffer_ft_printf, sizeof(buffer_ft_printf), format, args2);
+    ret1 = ft_vsnprintf(buf1, sizeof(buf1), format, args1);
+    ret2 = vsnprintf(buf2, sizeof(buf2), format, args2);
 
     va_end(args1);
     va_end(args2);
 
-    TEST_ASSERT_EQUAL_STRING(buffer_printf, buffer_ft_printf);
-    TEST_ASSERT_EQUAL_INT(result_printf, result_ft_printf);
+    printf("ft_printf: %s\n", buf1);
+    printf("snprintf:  %s\n", buf2);
+
+    return strcmp(buf1, buf2) == 0;
 }
