@@ -12,23 +12,23 @@
 
 #include "ft_printf.h"
 
-const char *parse_flags(const char *format, t_format *fmt)
+const char	*parse_flags(const char *format, t_format *fmt)
 {
-    while (*format)
-    {
-        if (*format == '-')
-            fmt->flag_minus = 1;
-        else if (*format == '+')
-            fmt->flag_plus = 1;
-        else if (*format == ' ')
-            fmt->flag_space = 1;
-        else if (*format == '0')
-            fmt->flag_zero = 1;
-        else if (*format == '#')
-            fmt->flag_hash = 1;
-        else
-            break;
-        format++;
-    }
-    return format;
+	while (*format)
+	{
+		if (*format == '-')
+			fmt->flag_minus = 1;
+		else if (*format == '+')
+			fmt->flag_plus = 1;
+		else if (*format == ' ')
+			fmt->flag_space = 1;
+		else if (*format == '0')
+			fmt->flag_zero = 1;
+		else if (*format == '#')
+			fmt->flag_hash = 1;
+		else
+			break ;
+		format++;
+	}
+	return (format);
 }

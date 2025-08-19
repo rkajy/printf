@@ -12,34 +12,34 @@
 
 #include "ft_printf.h"
 
-int print_arg_fd(int fd, t_format *fmt, va_list *args)
+int	print_arg_fd(int fd, t_format *fmt, va_list *args)
 {
-    char buffer[1024]; // temporaire
-    int len;
+	int	len;
 
-    // Appelle l'ancienne print_arg mais redirige vers buffer
-    len = print_arg(fmt, args); // temporaire
-    // ici tu devrais écrire dans fd au lieu de stdout
-    write(fd, buffer, len);
-    return len;
+	char buffer[1024]; // temporaire
+	// Appelle l'ancienne print_arg mais redirige vers buffer
+	len = print_arg(fmt, args); // temporaire
+	// ici tu devrais écrire dans fd au lieu de stdout
+	write(fd, buffer, len);
+	return (len);
 }
 
-int print_arg(t_format *fmt, va_list *args)
+int	print_arg(t_format *fmt, va_list *args)
 {
-    if(fmt->type == 'c')
-        return print_char(fmt, args);
-    else if(fmt->type == 's')
-        return print_string(fmt, args);
-    else if(fmt->type == 'd' || fmt->type == 'i')
-        return print_integer(fmt, args);
-    else if(fmt->type == 'u')
-        return print_unsigned(fmt, args);
-    else if(fmt->type == 'x' || fmt->type == 'X')
-        return print_hexadecimal(fmt, args);
-    else if(fmt->type == 'p')
-        return print_pointer(fmt, args);
-    else if(fmt->type == '%')
-        return print_percent(fmt);
-    else
-        return -1; // Unsupported format type
+	if (fmt->type == 'c')
+		return (print_char(fmt, args));
+	else if (fmt->type == 's')
+		return (print_string(fmt, args));
+	else if (fmt->type == 'd' || fmt->type == 'i')
+		return (print_integer(fmt, args));
+	else if (fmt->type == 'u')
+		return (print_unsigned(fmt, args));
+	else if (fmt->type == 'x' || fmt->type == 'X')
+		return (print_hexadecimal(fmt, args));
+	else if (fmt->type == 'p')
+		return (print_pointer(fmt, args));
+	else if (fmt->type == '%')
+		return (print_percent(fmt));
+	else
+		return (-1); // Unsupported format type
 }

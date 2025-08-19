@@ -14,25 +14,25 @@
 
 int	print_integer(t_format *fmt, va_list *args)
 {
-    (void)fmt; // Unused parameter
-    (void)args; // Unused parameter
-    return 0;
+	(void)fmt;  // Unused parameter
+	(void)args; // Unused parameter
+	return (0);
 }
 int	print_unsigned(t_format *fmt, va_list *args)
 {
-    (void)fmt; // Unused parameter
-    (void)args; // Unused parameter
-    return 0;
+	(void)fmt;  // Unused parameter
+	(void)args; // Unused parameter
+	return (0);
 }
 int	print_hexadecimal(t_format *fmt, va_list *args)
 {
-    (void)fmt; // Unused parameter
-    (void)args; // Unused parameter
-    return 0;
+	(void)fmt;  // Unused parameter
+	(void)args; // Unused parameter
+	return (0);
 }
 int	print_pointer(t_format *fmt, va_list *args)
 {
-    (void)fmt; // Unused parameter
-    (void)args; // Unused parameter
-    return 0;
+	(void)fmt;  // Unused parameter
+	(void)args; // Unused parameter
+	return (0);
 }

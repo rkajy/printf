@@ -11,45 +11,46 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <unistd.h>
 #include <stdarg.h>
+#include <unistd.h>
 
-int ft_vdprintf(int fd, const char *format, va_list args)
+int	ft_vdprintf(int fd, const char *format, va_list args)
 {
-    t_format fmt;
-    int count = 0;
-    const char *ptr = format;
+	t_format	fmt;
+	int			count;
+	const char	*ptr = format;
 
-    while (*ptr)
-    {
-        if (*ptr == '%')
-        {
-            ptr++;
-            fmt = (t_format){0, 0, 0, 0, 0, 0, 0, 0}; 
-            ptr = parse_flags(ptr, &fmt);
-            if (*ptr)
-                fmt.type = *ptr++;
-            count += print_arg_fd(fd, &fmt, &args); 
-        }
-        else
-        {
-            write(fd, ptr, 1);
-            count++;
-            ptr++;
-        }
-    }
-    return count;
+	count = 0;
+	while (*ptr)
+	{
+		if (*ptr == '%')
+		{
+			ptr++;
+			fmt = (t_format){0, 0, 0, 0, 0, 0, 0, 0};
+			ptr = parse_flags(ptr, &fmt);
+			if (*ptr)
+				fmt.type = *ptr++;
+			count += print_arg_fd(fd, &fmt, &args);
+		}
+		else
+		{
+			write(fd, ptr, 1);
+			count++;
+			ptr++;
+		}
+	}
+	return (count);
 }
 
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
-    va_list args;
-    int ret;
+	va_list	args;
+	int		ret;
 
-    va_start(args, format);
-    ret = ft_vdprintf(1, format, args); // stdout
-    va_end(args);
-    return ret;
+	va_start(args, format);
+	ret = ft_vdprintf(1, format, args); // stdout
+	va_end(args);
+	return (ret);
 }
 
 // int main(void)
@@ -61,5 +62,5 @@ int ft_printf(const char *format, ...)
 //     ft_printf("String: %s\n", "Test string");
 //     ft_printf("Percentage: %%\n");
 
-//     return 0;
+//     return (0);
 // }
