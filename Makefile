@@ -99,14 +99,32 @@ install_paco:
 	chmod +x francinette/tester.sh
 
 paco:
-	# Crée le venv si nécessaire
+	@set -e; \
 	if [ ! -d francinette/venv ]; then \
 		python3 -m venv francinette/venv; \
+	fi; \
+	bash -c "source francinette/venv/bin/activate && \
+		pip install --upgrade pip && \
+		pip install -r francinette/requirements.txt && \
+		pip install norminette && \
+		cd src && ../francinette/tester.sh | tee ../result.log"; \
+	if grep -E -q "Failed tests:|Norminette Errors|Error:|KO" result.log; then \
+		echo '❌ Tests échoués (voir result.log)'; \
+		exit 1; \
+	else \
+		echo '✅ Tous les tests sont passés'; \
 	fi
-	# Active le venv et installe toutes les dépendances
-	. francinette/venv/bin/activate && pip install --upgrade pip && pip install -r francinette/requirements.txt
-	# Lancer le script de Paco
-	cd src && ../francinette/tester.sh
+
+pacol:
+	@set -e; \
+	if [ ! -d francinette/venv ]; then \
+		python3 -m venv francinette/venv; \
+	fi; \
+	bash -c "source francinette/venv/bin/activate && \
+		pip install --upgrade pip && \
+		pip install -r francinette/requirements.txt && \
+		pip install norminette && \
+		cd src && ../francinette/tester.sh"
 
 install-ohmyzsh:
 	@echo "Vérification de zsh..."
@@ -187,4 +205,4 @@ install_doxygen:
 	@doxygen --version
 
 
-.PHONY: all compile test test-valgrind clean install norminette format_norm install_unity install-ohmyzsh install_valgrind install_doxygen
+.PHONY: all compile test test-valgrind clean install norminette format_norm install_unity install-ohmyzsh install_valgrind install_doxygen paco pacol

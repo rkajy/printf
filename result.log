@@ -1,0 +1,72 @@
+Requirement already satisfied: pip in ./francinette/venv/lib/python3.9/site-packages (25.2)
+Requirement already satisfied: GitPython in ./francinette/venv/lib/python3.9/site-packages (from -r francinette/requirements.txt (line 1)) (3.1.45)
+Requirement already satisfied: halo in ./francinette/venv/lib/python3.9/site-packages (from -r francinette/requirements.txt (line 2)) (0.0.31)
+Requirement already satisfied: pexpect in ./francinette/venv/lib/python3.9/site-packages (from -r francinette/requirements.txt (line 3)) (4.9.0)
+Requirement already satisfied: rich in ./francinette/venv/lib/python3.9/site-packages (from -r francinette/requirements.txt (line 4)) (14.1.0)
+Requirement already satisfied: toml in ./francinette/venv/lib/python3.9/site-packages (from -r francinette/requirements.txt (line 5)) (0.10.2)
+Requirement already satisfied: certifi in ./francinette/venv/lib/python3.9/site-packages (from -r francinette/requirements.txt (line 6)) (2025.8.3)
+Requirement already satisfied: packaging in ./francinette/venv/lib/python3.9/site-packages (from -r francinette/requirements.txt (line 7)) (25.0)
+Requirement already satisfied: gitdb<5,>=4.0.1 in ./francinette/venv/lib/python3.9/site-packages (from GitPython->-r francinette/requirements.txt (line 1)) (4.0.12)
+Requirement already satisfied: typing-extensions>=3.10.0.2 in ./francinette/venv/lib/python3.9/site-packages (from GitPython->-r francinette/requirements.txt (line 1)) (4.14.1)
+Requirement already satisfied: smmap<6,>=3.0.1 in ./francinette/venv/lib/python3.9/site-packages (from gitdb<5,>=4.0.1->GitPython->-r francinette/requirements.txt (line 1)) (5.0.2)
+Requirement already satisfied: log_symbols>=0.0.14 in ./francinette/venv/lib/python3.9/site-packages (from halo->-r francinette/requirements.txt (line 2)) (0.0.14)
+Requirement already satisfied: spinners>=0.0.24 in ./francinette/venv/lib/python3.9/site-packages (from halo->-r francinette/requirements.txt (line 2)) (0.0.24)
+Requirement already satisfied: termcolor>=1.1.0 in ./francinette/venv/lib/python3.9/site-packages (from halo->-r francinette/requirements.txt (line 2)) (3.1.0)
+Requirement already satisfied: colorama>=0.3.9 in ./francinette/venv/lib/python3.9/site-packages (from halo->-r francinette/requirements.txt (line 2)) (0.4.6)
+Requirement already satisfied: six>=1.12.0 in ./francinette/venv/lib/python3.9/site-packages (from halo->-r francinette/requirements.txt (line 2)) (1.17.0)
+Requirement already satisfied: ptyprocess>=0.5 in ./francinette/venv/lib/python3.9/site-packages (from pexpect->-r francinette/requirements.txt (line 3)) (0.7.0)
+Requirement already satisfied: markdown-it-py>=2.2.0 in ./francinette/venv/lib/python3.9/site-packages (from rich->-r francinette/requirements.txt (line 4)) (3.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in ./francinette/venv/lib/python3.9/site-packages (from rich->-r francinette/requirements.txt (line 4)) (2.19.2)
+Requirement already satisfied: mdurl~=0.1 in ./francinette/venv/lib/python3.9/site-packages (from markdown-it-py>=2.2.0->rich->-r francinette/requirements.txt (line 4)) (0.1.2)
+Requirement already satisfied: norminette in ./francinette/venv/lib/python3.9/site-packages (3.3.58)
+Collecting argparse<2.0.0,>=1.4.0 (from norminette)
+  Using cached argparse-1.4.0-py2.py3-none-any.whl.metadata (2.8 kB)
+Using cached argparse-1.4.0-py2.py3-none-any.whl (23 kB)
+Installing collected packages: argparse
+Successfully installed argparse-1.4.0
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                Welcome to Francinette, a 42 tester framework!                ║
+╚═══════════════════════╦══════════════════════════════╦═══════════════════════╝
+                        ║            printf            ║
+                        ╚══════════════════════════════╝
+⠋ Preparing framework⠙ Preparing framework✔ Preparing framework
+⠋ Executing: norminette⠙ Executing: norminette⠹ Executing: norminette⠸ Executing: norminette⠼ Executing: norminette⠴ Executing: norminette⠦ Executing: norminette⠧ Executing: norminette⠇ Executing: norminette⠏ Executing: norminette⠋ Executing: norminette⠙ Executing: norminette⠹ Executing: norminette⠸ Executing: norminette⠼ Executing: norminette⠴ Executing: norminette✔ Executing: norminette
+⠋ Executing: make fclean bonus⠙ Executing: make fclean bonus✔ Executing: make fclean bonus
+ℹ Running tests: printfTester (https://github.com/Tripouille/printfTester)
+make[1]: *** No rule to make target `m'.  Stop.
+make[1]: *** No rule to make target `b'.  Stop.
+
+list index out of range
+⠋ Compiling tests: printf-unit-test (https://github.com/ (...)⠙ Compiling tests: printf-unit-test (https://github.com/ (...)✖ Compiling tests: printf-unit-test (https://github.com/alelievr/printf-unit-test)
+make[1]: *** No targets specified and no makefile found.  Stop.
+ℹ Running tests: printf-unit-test (https://github.com/alelievr/printf-unit-test)
+The command was not found or was not executable: ./run_test.
+⠋ Compiling tests: ft_printf_test (https://github.com/ca (...)⠙ Compiling tests: ft_printf_test (https://github.com/ca (...)✖ Compiling tests: ft_printf_test (https://github.com/cacharle/ft_printf_test)
+make[1]: *** No rule to make target `all'.  Stop.
+ℹ Running tests: ft_printf_test (https://github.com/cacharle/ft_printf_test)
+make[1]: *** No rule to make target `quiet'.  Stop.
+list index out of range
+⠋ Compiling tests: fsoares (my own tests)⠙ Compiling tests: fsoares (my own tests)⠹ Compiling tests: fsoares (my own tests)✖ Compiling tests: fsoares (my own tests)
+[1mft_printf.c:33:36: [0m[0;1;31merror: [0m[1mincompatible pointer types passing
+      'struct __va_list_tag **' to parameter of type 'va_list *' (aka
+      '__builtin_va_list *') [-Werror,-Wincompatible-pointer-types][0m
+                        count += print_arg_fd(fd, &fmt, &args);
+[0;1;32m                                                        ^~~~~
+[0m[1m./ft_printf.h:44:50: [0m[0;1;30mnote: [0mpassing argument to parameter 'args' here[0m
+int print_arg_fd(int fd, t_format *fmt, va_list *args);
+[0;1;32m                                                 ^
+[0m1 error generated.
+make[2]: *** [ft_printf.o] Error 1
+make[1]: [build_m] Error 2 (ignored)
+clang: [0;1;31merror: [0mno such file or directory: '../__my_srcs/libftprintf.a'[0m
+make[1]: [build_m] Error 1 (ignored)
+clang: [0;1;31merror: [0mno such file or directory: '../__my_srcs/libftprintf.a'[0m
+make[1]: [build_b] Error 1 (ignored)
+Problem compiling the tests
+
+Summary: 
+
+Norminette Errors: ft_print_arg.c, ft_print_utils_alphabet.c, ft_print_utils_numeric.c, ft_printf.c, ft_printf.h
+
+Failed tests: printf-unit-test, ft_printf_test, fsoares, printfTester
+
