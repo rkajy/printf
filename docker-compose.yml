@@ -12,6 +12,7 @@ services:
       bash -c "paco | tee /tmp/result.log &&
                 if grep -iqE 'Errors|KO|Error' /tmp/result.log; then
                   echo '❌ Paco failed, check /tmp/result.log for details';
+                  cat /tmp/result.log;
                   exit 1;
                 else
                   echo '✅ Paco passed successfully';
