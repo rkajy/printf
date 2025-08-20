@@ -6,7 +6,7 @@
 /*   By: radandri <radandri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 13:43:38 by radandri          #+#    #+#             */
-/*   Updated: 2025/08/18 23:11:05 by radandri         ###   ########.fr       */
+/*   Updated: 2025/08/20 21:15:44 by radandri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ int	print_string(t_format *fmt, va_list *args)
 int	print_percent(t_format *fmt)
 {
 	(void)fmt; // Unused parameter
-	return (0);
+	// write(1, "%", 1);
+	int count = 0;
+	return (count);
 }

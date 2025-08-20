@@ -6,7 +6,7 @@
 #    By: radandri <radandri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/11 18:42:51 by radandri          #+#    #+#              #
-#    Updated: 2025/08/20 12:32:45 by radandri         ###   ########.fr        #
+#    Updated: 2025/08/20 15:51:21 by radandri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ $(NAME): $(OBJS)
 # clean up extracted libft.o files
 	rm -f *.o
 
-bonus:
+#bonus:
 
 clean:
 	rm -f $(OBJS)
