@@ -1,6 +1,3 @@
 [submodule "unity"]
 	path = unity
 	url = https://github.com/ThrowTheSwitch/Unity
-[submodule "francinette"]
-	path = francinette
-	url = https://github.com/xicodomingues/francinette.git

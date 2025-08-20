@@ -1,0 +1,29 @@
+FROM ubuntu:20.04
+
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y \
+    curl \
+    bash \
+    zsh \
+    build-essential \
+    git && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Francinette
+RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
+
+# Add Francinette to PATH
+ENV PATH="/root/francinette:$PATH"
+
+# Add a symbolic link to the Francinette tester script
+RUN ln -s /root/francinette/tester.sh /usr/local/bin/paco
+
+# This is where the code will be copied
+WORKDIR /code
+
+# Copier le code source dans le conteneur
+COPY . .
+
+# Commande par défaut
+CMD ["paco"]

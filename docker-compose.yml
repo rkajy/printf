@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  francinette:
+    build:
+      context: .
+      dockerfile: Dockerfile.francinette
+    volumes:
+      - .:/code
+    working_dir: /code/src
+    command: >
+      bash -c "paco | tee /tmp/result.log &&
+                if grep -iqE 'Errors|KO|Error' /tmp/result.log; then
+                  echo '❌ Paco failed, check /tmp/result.log for details';
+                  exit 1;
+                else
+                  echo '✅ Paco passed successfully';
+                fi"

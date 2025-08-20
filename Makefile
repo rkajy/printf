@@ -38,6 +38,10 @@ OBJS        := $(SRC_FILES:%.c=$(OBJ_DIR)/%.o) \
 CC          := cc
 CFLAGS      := -I. -I$(DEP_DIR) -I$(SRC_DIR) -I$(UNITY_DIR) -DTEST
 
+
+bonus:
+	@$(MAKE) -C $(SRC_DIR) bonus
+
 # =========================
 # Cible principale pour tester
 # =========================
@@ -74,6 +78,8 @@ $(OBJ_DIR)/%.o: %.c
 # =========================
 clean:
 	rm -rf $(OBJ_DIR) $(RESULTS_DIR) $(DEP_DIR) src/*.out
+	@$(MAKE) -C $(SRC_DIR) clean
+	@$(MAKE) -C $(SRC_DIR) fclean
 
 norminette:
 	if ! command -v norminette &> /dev/null; then \
@@ -93,40 +99,6 @@ install_unity:
 	rm -rf unity
 	git submodule add https://github.com/ThrowTheSwitch/Unity.git unity
 
-install_paco:
-	@echo "==== Mise à jour de Paco ===="
-	git submodule update --init --recursive
-	chmod +x francinette/tester.sh
-
-paco:
-	@set -e; \
-	if [ ! -d francinette/venv ]; then \
-		python3 -m venv francinette/venv; \
-	fi; \
-	bash -c "source francinette/venv/bin/activate && \
-		pip install --upgrade pip && \
-		pip install -r francinette/requirements.txt && \
-		pip install norminette && \
-		cd src && ../francinette/tester.sh | tee ../result.log"; \
-	if grep -E -q "Failed tests:|Norminette Errors|Error:|KO" result.log; then \
-		echo '❌ Tests échoués (voir result.log)'; \
-		exit 1; \
-	else \
-		echo '✅ Tous les tests sont passés'; \
-	fi
-	rm -rf result.log
-
-pacol:
-	@set -e; \
-	if [ ! -d francinette/venv ]; then \
-		python3 -m venv francinette/venv; \
-	fi; \
-	bash -c "source francinette/venv/bin/activate && \
-		pip install --upgrade pip && \
-		pip install -r francinette/requirements.txt && \
-		pip install norminette && \
-		cd src && ../francinette/tester.sh"
-		rm -rf result.log
 
 install-ohmyzsh:
 	@echo "Vérification de zsh..."
@@ -207,4 +179,4 @@ install_doxygen:
 	@doxygen --version
 
 
-.PHONY: all compile test test-valgrind clean install norminette format_norm install_unity install-ohmyzsh install_valgrind install_doxygen paco pacol
+.PHONY: all compile test test-valgrind clean install norminette format_norm install_unity install-ohmyzsh install_valgrind install_doxygen
