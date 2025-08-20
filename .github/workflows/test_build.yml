@@ -70,26 +70,26 @@ jobs:
         run: |
           make clean
           make test
+# doesn't work with docker-compose yet
+  # run-paco:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         submodules: recursive
+  #         fetch-depth: 0
 
-  run-paco:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-          fetch-depth: 0
+  #     - name: Install Docker & docker-compose
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install -y docker-compose
 
-      - name: Install Docker & docker-compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
+  #     - name: Build Francinette Docker image
+  #       run: docker-compose build
 
-      - name: Build Francinette Docker image
-        run: docker-compose build
-
-      - name: Run Paco in Docker
-        run: |
-          docker-compose run --rm francinette
+  #     - name: Run Paco in Docker
+  #       run: |
+  #         docker-compose run --rm francinette
 
   test-valgrind:
     runs-on: ubuntu-latest
