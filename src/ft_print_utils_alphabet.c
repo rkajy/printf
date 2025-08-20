@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_utils_alphabet.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: radandri <radandri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 13:43:38 by radandri          #+#    #+#             */
-/*   Updated: 2025/08/20 21:15:44 by radandri         ###   ########.fr       */
+/*   Updated: 2025/08/20 19:43:28 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	print_char(t_format *fmt, va_list *args)
 	c = (char)va_arg(*args, int);
 	if (!fmt->flag_minus)
 	{
-		while (i < fmt->width - 1) //
+		while (i < fmt->width - 1)
 		{
 			write(1, " ", 1);
 			i++;
@@ -60,14 +60,16 @@ int	print_char(t_format *fmt, va_list *args)
 
 int	print_string(t_format *fmt, va_list *args)
 {
-	(void)fmt;  // Unused parameter
-	(void)args; // Unused parameter
+	(void)fmt;
+	(void)args;
 	return (0);
 }
+
 int	print_percent(t_format *fmt)
 {
-	(void)fmt; // Unused parameter
-	// write(1, "%", 1);
-	int count = 0;
+	int	count;
+
+	(void)fmt;
+	count = 0;
 	return (count);
 }

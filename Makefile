@@ -8,7 +8,16 @@ BUILD_DIR   := build
 OBJ_DIR     := $(BUILD_DIR)/objs
 RESULTS_DIR := $(BUILD_DIR)/results
 DEP_DIR     := $(BUILD_DIR)/depends
-PACO_BIN := $(shell which -v paco)
+
+EXTENSIONS42 = \
+	42Paris.c-formatter \
+	kube.42header \
+	42Paris.ft_count_lines \
+	tomoki1207.pdf \
+	GitHub.copilot \
+	GitHub.copilot-chat \
+	cschleiden.vscode-github-actions
+
 # =========================
 # Fichiers sources
 # =========================
@@ -86,7 +95,7 @@ norminette:
 		python3 -m pip install --upgrade pip; \
 		python3 -m pip install norminette; \
 	fi
-	norminette $(PATHS)
+	norminette $(SRC_DIR)
 
 format_norm: # work on linux only
 	if ! command -v c-formatter-42 &> /dev/null; then \
@@ -178,5 +187,12 @@ install_doxygen:
 	@echo "==== Installation terminée ===="
 	@doxygen --version
 
+install42:
+	@echo "🔧 Installation des extensions VSCode..."
+	@for ext in $(EXTENSIONS42); do \
+		code --install-extension $$ext || echo "⚠️  Erreur sur $$ext"; \
+	done
+	@echo "✅ Installation terminée."
 
-.PHONY: all compile test test-valgrind clean install norminette format_norm install_unity install-ohmyzsh install_valgrind install_doxygen
+
+.PHONY: all compile test test-valgrind clean install norminette format_norm install_unity install-ohmyzsh install_valgrind install_doxygen install42
