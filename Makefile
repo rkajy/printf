@@ -10,9 +10,10 @@ RESULTS_DIR := $(BUILD_DIR)/results
 DEP_DIR     := $(BUILD_DIR)/depends
 
 EXTENSIONS42 = \
-	42Paris.c-formatter \
+	keyhr.42-c-format \
+	mariusvanwijk-joppekoers.codanorminette-3 \
 	kube.42header \
-	42Paris.ft_count_lines \
+	dokca.42-ft-count-line \
 	tomoki1207.pdf \
 	GitHub.copilot \
 	GitHub.copilot-chat \
